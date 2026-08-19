@@ -8,5 +8,5 @@ spec:
   selector:
     app: tennis-label
   ports:
-    - port: 8080 #порт, который идет наружу
-      targetPort: 8080 # реальный порт имеджа, куда слать трафик
+    - port: 8080 #порт, который идет наружу. Может даже не совпадать с targetPort
+      targetPort: 8080 # реальный порт имеджа, обязан совпадать с server.port
