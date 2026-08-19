@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tennis-deployment
+  labels:
+    app: tennis-label-metadata
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tennis-label
+  template:
+    metadata:
+      labels:
+        app: tennis-label
+    spec:
+      containers:
+        - name: tennis-play
+          image: tennis:1
+          ports:
+            - containerPort: 8080 # просто "справочная" информация для того чтобы понимать на какой порт обращаться
