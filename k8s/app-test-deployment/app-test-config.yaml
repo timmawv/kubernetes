@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-test-config
+data:
+  APP_ENVIRONMENT: "kubernetes"
+  GREETING_MESSAGE: "Hello from Kubernetes! V1.0"

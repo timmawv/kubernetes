@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-test-deployment
+  labels:
+    app: app-test-label-metadata
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-test-label
+  template:
+    metadata:
+      labels:
+        app: app-test-label
+    spec:
+      containers:
+        - name: app-test
+          image: app:1
+          envFrom:
+            - secretRef:
+                name: app-test-secret
+            - configMapRef:
+                name: app-test-config
+          ports:
+            - containerPort: 8080 # просто "справочная" информация для того чтобы понимать на какой порт обращаться
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5

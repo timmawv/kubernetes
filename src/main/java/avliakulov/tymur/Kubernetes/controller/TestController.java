@@ -15,11 +15,15 @@ public class TestController {
     @Value("${app.greeting-message}")
     private String greetingMessage;
 
+    @Value("${app.password}")
+    private String password;
+
     @GetMapping("/api/greeting")
     public Map<String, String> greeting() {
         return Map.of(
                 "message", greetingMessage,
-                "environment", environment
+                "environment", environment,
+                "password", password
         );
     }
 }
