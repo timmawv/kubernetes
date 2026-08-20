@@ -1,0 +1,25 @@
+package avliakulov.tymur.Kubernetes.controller;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
+@RestController
+public class TestController {
+
+    @Value("${app.environment}")
+    private String environment;
+
+    @Value("${app.greeting-message}")
+    private String greetingMessage;
+
+    @GetMapping("/api/greeting")
+    public Map<String, String> greeting() {
+        return Map.of(
+                "message", greetingMessage,
+                "environment", environment
+        );
+    }
+}
