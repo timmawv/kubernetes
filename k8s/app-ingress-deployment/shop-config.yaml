@@ -6,3 +6,4 @@ data:
   APP_ENVIRONMENT: "kubernetes"
   GREETING_MESSAGE: "Hello from Shop!"
   SERVER_PORT: "8080"
+  BANK_URL: "http://bank-service:8080"
