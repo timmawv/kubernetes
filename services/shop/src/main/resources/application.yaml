@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Kubernetes
+    name: shop
 
 management:
   endpoint:

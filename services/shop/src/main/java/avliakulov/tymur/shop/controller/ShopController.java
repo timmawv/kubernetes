@@ -1,13 +1,15 @@
-package avliakulov.tymur.Kubernetes.controller;
+package avliakulov.tymur.shop.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
 @RestController
-public class TestController {
+@RequestMapping("/shop")
+public class ShopController {
 
     @Value("${app.environment}")
     private String environment;
@@ -18,7 +20,7 @@ public class TestController {
     @Value("${app.password}")
     private String password;
 
-    @GetMapping("/api/greeting")
+    @GetMapping("/api")
     public Map<String, String> greeting() {
         return Map.of(
                 "message", greetingMessage,
