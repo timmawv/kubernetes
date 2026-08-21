@@ -16,3 +16,6 @@ app:
   environment: ${APP_ENVIRONMENT:local}
   greeting-message: ${GREETING_MESSAGE:Hello from default config}
   password: ${PASSWORD:no password}
+
+server:
+  port: ${SERVER_PORT:8081}
