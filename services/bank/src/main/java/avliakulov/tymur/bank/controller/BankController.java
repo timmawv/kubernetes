@@ -28,4 +28,12 @@ public class BankController {
                 "password", password
         );
     }
+
+    @GetMapping("/data")
+    public Map<String, String> getBankData() {
+        return Map.of(
+                "id", "20",
+                "balance", "1000"
+        );
+    }
 }

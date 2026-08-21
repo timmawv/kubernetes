@@ -17,5 +17,8 @@ app:
   greeting-message: ${GREETING_MESSAGE:Hello from default config}
   password: ${PASSWORD:no password}
 
+clients:
+  bank-url: ${BANK_URL:http://localhost:8080}
+
 server:
   port: ${SERVER_PORT:8081}
