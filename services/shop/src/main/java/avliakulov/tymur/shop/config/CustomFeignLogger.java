@@ -4,8 +4,10 @@ import feign.Request;
 import feign.Response;
 import feign.Util;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class CustomFeignLogger extends feign.Logger {
 
@@ -13,33 +15,54 @@ public class CustomFeignLogger extends feign.Logger {
 
     @Override
     protected void logRequest(String configKey, Level logLevel, Request request) {
-        String body = request.body() != null ? new String(request.body(), request.charset()) : "{}";
+        try {
+            String body = request.body() != null
+                    ? new String(request.body(), StandardCharsets.UTF_8)
+                    : "{}";
 
-        log.info("type: request, method: {}, url: {}, body: {}",
-                request.httpMethod(),
-                request.url(),
-                body.isEmpty() ? "{}" : body);
+            // Кладем структурированные данные прямо в MDC
+            MDC.put("http_type", "request");
+            MDC.put("http_method", request.httpMethod().name());
+            MDC.put("http_url", request.url());
+            MDC.put("http_body", body);
+
+            // Сам текст сообщения может быть кратким
+            log.info("Feign outgoing request");
+        } finally {
+            // Очищаем кастомные ключи, чтобы они не утекли в другие логи текущего потока
+            MDC.remove("http_type");
+            MDC.remove("http_method");
+            MDC.remove("http_url");
+            MDC.remove("http_body");
+        }
     }
 
     @Override
     protected Response logAndRebufferResponse(String configKey, Level logLevel, Response response, long elapsedTime) throws IOException {
         String body = "{}";
+        Response responseToReturn = response;
 
-        if (response.body() != null && response.status() != 204) {
+        if (response.body() != null && response.body().length() != null) {
             byte[] bodyBytes = Util.toByteArray(response.body().asInputStream());
-            body = new String(bodyBytes, Util.UTF_8);
-
-            // Обязательно пересоздаем response, так как поток тела можно прочитать только один раз
-            response = response.toBuilder().body(bodyBytes).build();
+            body = new String(bodyBytes, StandardCharsets.UTF_8);
+            responseToReturn = response.toBuilder().body(bodyBytes).build();
         }
 
-        log.info("type: response, status: {}, url: {}, elapsedTime: {}ms, body: {}",
-                response.status(),
-                response.request().url(),
-                elapsedTime,
-                body.isEmpty() ? "{}" : body);
+        try {
+            MDC.put("http_type", "response");
+            MDC.put("http_status", String.valueOf(response.status()));
+            MDC.put("execution_time_ms", String.valueOf(elapsedTime));
+            MDC.put("http_body", body);
 
-        return response;
+            log.info("Feign incoming response");
+        } finally {
+            MDC.remove("http_type");
+            MDC.remove("http_status");
+            MDC.remove("execution_time_ms");
+            MDC.remove("http_body");
+        }
+
+        return responseToReturn;
     }
 
     @Override

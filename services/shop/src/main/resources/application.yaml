@@ -22,7 +22,3 @@ clients:
 
 server:
   port: ${SERVER_PORT:8081}
-
-logging:
-  level:
-    avliakulov.tymur.shop.feign.BankClient: DEBUG    # укажи пакет твоего Feign-интерфейса
