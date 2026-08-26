@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "bank-service", url = "${clients.bank-url}")
 public interface BankClient {
 
-    @GetMapping("/bank/data")
+    @GetMapping("/bank/account")
     AccountDto getBankData(@RequestParam Long accountId);
 }

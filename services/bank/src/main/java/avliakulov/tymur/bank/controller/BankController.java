@@ -5,10 +5,7 @@ import avliakulov.tymur.bank.service.AccountService;
 import avliakulov.tymur.dto.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -35,8 +32,13 @@ public class BankController {
         );
     }
 
-    @GetMapping("/data")
+    @GetMapping("/account")
     public AccountDto getBankData(@RequestParam Long accountId) {
         return accountService.getAccountById(accountId);
+    }
+
+    @PostMapping("/account")
+    public void saveAccount(@RequestBody AccountDto accountDto) {
+        accountService.saveAccount(accountDto);
     }
 }
