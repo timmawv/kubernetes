@@ -3,10 +3,7 @@ package avliakulov.tymur.shop.controller;
 import avliakulov.tymur.shop.feign.BankClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -36,7 +33,7 @@ public class ShopController {
     }
 
     @GetMapping("/info")
-    public Map<String, String> getInfo() {
-        return bankClient.getBankData();
+    public Object getInfo(@RequestParam Long accountId) {
+        return bankClient.getBankData(accountId);
     }
 }

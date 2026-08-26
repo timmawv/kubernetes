@@ -2,6 +2,7 @@ package avliakulov.tymur.bank.controller;
 
 import avliakulov.tymur.bank.entity.Account;
 import avliakulov.tymur.bank.service.AccountService;
+import avliakulov.tymur.dto.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,8 @@ public class BankController {
         );
     }
 
-    @GetMapping("/account")
-    public Account getBankData(@RequestParam Long accountId) {
+    @GetMapping("/data")
+    public AccountDto getBankData(@RequestParam Long accountId) {
         return accountService.getAccountById(accountId);
     }
 }

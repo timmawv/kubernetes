@@ -12,3 +12,5 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+#docker run -d --name postgres -p 5432:5432 -e HOST=postgres -e POSTGRES_PASSWORD=postgres postgres:16-alpine

@@ -42,6 +42,11 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>avliakulov.tymur</groupId>
+			<artifactId>dto</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 
