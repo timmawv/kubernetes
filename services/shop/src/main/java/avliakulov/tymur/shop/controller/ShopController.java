@@ -1,5 +1,6 @@
 package avliakulov.tymur.shop.controller;
 
+import avliakulov.tymur.dto.AccountDto;
 import avliakulov.tymur.shop.feign.BankClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +34,7 @@ public class ShopController {
     }
 
     @GetMapping("/info")
-    public Object getInfo(@RequestParam Long accountId) {
+    public AccountDto getInfo(@RequestParam Long accountId) {
         return bankClient.getBankData(accountId);
     }
 }
