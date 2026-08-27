@@ -5,3 +5,7 @@ metadata:
 data:
   APP_ENVIRONMENT: "kubernetes"
   GREETING_MESSAGE: "Hello from Bank"
+  DB_HOST: "postgres"      # имя headless Service — DNS сам разрулит остальное
+  DB_PORT: "5432"
+  DB_NAME: "postgres"
+  DB_USER: "postgres"

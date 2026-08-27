@@ -34,3 +34,17 @@ spec:
         resources:
           requests:
             storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+
+spec:
+  clusterIP: None        # это и делает Service "headless"
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
