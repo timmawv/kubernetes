@@ -5,6 +5,7 @@
 
 	<artifactId>dto</artifactId>
 	<version>1.0</version>
+	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>avliakulov.tymur</groupId>
