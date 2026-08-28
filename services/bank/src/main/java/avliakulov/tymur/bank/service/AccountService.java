@@ -6,6 +6,8 @@ import avliakulov.tymur.dto.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -19,5 +21,12 @@ public class AccountService {
     public AccountDto getAccountById(Long accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow();
         return new AccountDto(account.getId(), account.getBalance());
+    }
+
+    public List<AccountDto> getAccounts() {
+        List<Account> accounts = accountRepository.findAll();
+        return accounts.stream()
+                .map(account -> new AccountDto(account.getId(), account.getBalance()))
+                .toList();
     }
 }

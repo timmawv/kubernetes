@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,6 +31,11 @@ public class BankController {
                 "environment", environment,
                 "password", password
         );
+    }
+
+    @GetMapping("/accounts")
+    public List<AccountDto> getAccounts() {
+        return accountService.getAccounts();
     }
 
     @GetMapping("/account")
