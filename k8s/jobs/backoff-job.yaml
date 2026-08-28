@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: failed-job
+spec:
+  completions: 1
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: job
+          image: busybox
+          command: ["exit", "1"]
