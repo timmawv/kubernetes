@@ -1,3 +1,5 @@
+#kubectl get pods -n kube-system
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:

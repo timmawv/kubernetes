@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-deployment
+  labels:
+    app: shop-metadata
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-label
+  template:
+    metadata:
+      labels:
+        app: shop-label
+    spec:
+      containers:
+        - name: shop
+          image: shop:1.0
+          envFrom:
+            - configMapRef:
+                name: shop-config
+          resources:
+            requests:
+              cpu: "80m"
+#            limits:
+#              cpu: "200m"
+          ports:
+            - containerPort: 8080 # просто "справочная" информация для того чтобы понимать на какой порт обращаться
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop-service
+
+spec:
+  type: NodePort
+  selector:
+    app: shop-label
+  ports:
+    - port: 8080 #порт, который идет наружу. Может даже не совпадать с targetPort
+      targetPort: 8080 # реальный порт имеджа, обязан совпадать с server.port
