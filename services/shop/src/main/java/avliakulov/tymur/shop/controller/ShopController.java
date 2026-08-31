@@ -24,8 +24,11 @@ public class ShopController {
     @Autowired
     private BankClient bankClient;
 
+    private Long counter = 0L;
+
     @GetMapping("/api")
     public Map<String, String> greeting() {
+        System.out.println("Counter " + ++counter);
         return Map.of(
                 "message", greetingMessage,
                 "environment", environment,
