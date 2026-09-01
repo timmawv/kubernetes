@@ -32,7 +32,8 @@ public class ShopController {
         return Map.of(
                 "message", greetingMessage,
                 "environment", environment,
-                "password", password
+                "password", password,
+                "counter", counter.toString()
         );
     }
 
