@@ -24,22 +24,24 @@ spec:
           resources:
             requests:
               cpu: "80m"
-#            limits:
-#              cpu: "200m"
+              memory: "500Mi"
+            limits:
+              cpu: "200m"
+              memory: "600Mi"
           ports:
             - containerPort: 8080 # просто "справочная" информация для того чтобы понимать на какой порт обращаться
-          livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 8080
-            initialDelaySeconds: 20
-            periodSeconds: 5
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health/liveness
+#              port: 8080
+#            initialDelaySeconds: 30
+#            periodSeconds: 10
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health/readiness
+#              port: 8080
+#            initialDelaySeconds: 20
+#            periodSeconds: 5
 ---
 apiVersion: v1
 kind: Service
