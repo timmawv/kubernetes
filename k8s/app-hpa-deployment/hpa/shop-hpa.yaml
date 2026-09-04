@@ -9,6 +9,27 @@ spec:
     name: shop-deployment
   minReplicas: 1
   maxReplicas: 5
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+# Это неправильная метрика для моего примера, она означает, что каждую минуту можно увеличить, на 100% количество подов
+#        - type: Percent
+#          value: 100
+#          periodSeconds: 60
+        - type: Pods
+          value: 1
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+# Это неправильная настройка, говорит можно уменьшить, до 10 подов за раз, в период 60 секунд.
+#        - type: Pods
+#          value: 10
+#          periodSeconds: 60
+        - type: Pods
+          value: 1
+          periodSeconds: 60
   metrics:
     - type: Resource
       resource:

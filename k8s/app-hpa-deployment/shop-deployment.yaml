@@ -23,10 +23,10 @@ spec:
                 name: shop-config
           resources:
             requests:
-              cpu: "80m"
+              cpu: "250m"
               memory: "500Mi"
             limits:
-              cpu: "200m"
+              cpu: "300m"
               memory: "600Mi"
           ports:
             - containerPort: 8080 # просто "справочная" информация для того чтобы понимать на какой порт обращаться
