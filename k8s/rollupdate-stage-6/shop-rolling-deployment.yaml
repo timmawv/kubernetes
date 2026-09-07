@@ -6,7 +6,7 @@ metadata:
     app: shop-metadata
 
 spec:
-  replicas: 3
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: shop
-          image: shop:1.0
+          image: shop:2.0
           envFrom:
             - configMapRef:
                 name: shop-config

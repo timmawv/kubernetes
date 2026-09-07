@@ -31,6 +31,7 @@ public class ShopController {
         System.out.println("Counter " + ++counter);
         return Map.of(
                 "message", greetingMessage,
+                "version", "v2",
                 "environment", environment,
                 "password", password,
                 "counter", counter.toString()
